@@ -13,6 +13,54 @@ if ( ! defined( 'ABSPATH' ) ) {
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+
+    <!-- Critical Anti-FOUC Inlined Styling (Renders immediately before any external network requests) -->
+    <style id="amannisa-critical-css">
+    :root {
+      --pink: #E8006F; --pink-hover: #c9005f; --pink-soft: #ffe6e6; --pink-light: #fff0f5;
+      --bg: #FFF8E6; --bg-card: #FFF3E3; --ink: #141414; --mut: #6b6b76; --line: #f5d3d8;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --header-height: 80px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background-color: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; padding: 0; overflow-x: hidden; }
+    img, svg, video { max-width: 100%; height: auto; display: block; }
+    .pg:not(.on) { display: none !important; }
+    .pg.on { display: block !important; }
+    h1, h2, h3, h4, .h { font-family: var(--font-display); font-weight: 800; color: var(--ink); line-height: 1.15; letter-spacing: -0.02em; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255, 248, 230, 0.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 44px; height: 44px; border-radius: 12px; }
+    .brand b { font-size: 20px; font-weight: 800; color: var(--pink); display: block; line-height: 1.1; }
+    .brand small { font-size: 10px; letter-spacing: 0.12em; color: var(--mut); display: block; }
+    .main-nav { display: flex; align-items: center; gap: 24px; }
+    .main-nav a { font-weight: 600; font-size: 15px; color: var(--ink); }
+    .main-nav a.on, .main-nav a:hover { color: var(--pink); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    #menu-toggle { display: none; font-size: 24px; cursor: pointer; border: none; background: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; background: var(--pink); color: #fff !important; font-weight: 600; padding: 13px 26px; border-radius: 9999px; border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 24px rgba(232, 0, 111, 0.22); }
+    .btn.o { background: transparent; color: var(--pink) !important; border: 2px solid var(--pink); box-shadow: none; }
+    .pill { display: inline-block; background: var(--pink-soft); color: var(--pink); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; }
+    .rn { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); z-index: 90; background: var(--pink); color: #fff !important; font-weight: 700; font-size: 13px; padding: 14px 24px; border-radius: 9999px; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 30px rgba(232, 0, 111, 0.4); text-decoration: none; }
+    .hero { padding: clamp(24px, 5vw, 60px) 0; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+    .hero h1 { font-size: clamp(34px, 5vw, 56px); margin: 16px 0 20px; }
+    .hero h1 span { color: var(--pink); }
+    .hero p { font-size: clamp(16px, 2.2vw, 19px); line-height: 1.6; color: #3c3c44; max-width: 580px; margin-bottom: 28px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .photo-card { position: relative; border-radius: 36px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.12); }
+    @media (max-width: 991px) {
+      .main-nav { display: none; }
+      .main-nav.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: #FFF8E6; padding: 24px; border-bottom: 1px solid var(--line); z-index: 99; }
+      #menu-toggle { display: block; }
+      .hero { grid-template-columns: 1fr; }
+      .rn { top: auto; bottom: 20px; right: 20px; transform: none; }
+    }
+    </style>
+
     <!-- Performance Optimization: Preconnect & Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,30 +80,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     ?>
     <!-- Direct Stylesheet Link (Ensures styling loads even if caching plugins rewrite wp_enqueue_style) -->
     <link rel="stylesheet" id="amannisa-direct-style" href="<?php echo esc_url( amannisa_asset( 'css/style.css' ) . '?ver=' . $style_css_ver ); ?>">
-    <!-- Critical Anti-FOUC Inlined Styling -->
-    <style id="amannisa-critical-css">
-    :root {
-      --pink: #E8006F; --pink-hover: #c9005f; --pink-soft: #ffe6e6; --pink-light: #fff0f5;
-      --bg: #FFF8E6; --bg-card: #FFF3E3; --ink: #141414; --mut: #6b6b76; --line: #f5d3d8;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    body { font-family: var(--font-sans); background-color: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; padding: 0; }
-    .pg:not(.on) { display: none !important; }
-    .pg.on { display: block !important; }
-    h1, h2, h3, h4, .h { font-family: var(--font-display); font-weight: 800; color: var(--ink); }
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
-    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255, 248, 230, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
-    .bar { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 16px; }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { width: 44px; height: 44px; border-radius: 12px; }
-    .brand b { font-size: 20px; font-weight: 800; color: var(--pink); display: block; line-height: 1.1; }
-    .brand small { font-size: 10px; letter-spacing: 0.12em; color: var(--mut); display: block; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; background: var(--pink); color: #fff !important; font-weight: 600; padding: 13px 26px; border-radius: 9999px; border: none; cursor: pointer; text-decoration: none; }
-    .pill { display: inline-block; background: var(--pink-soft); color: var(--pink); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; }
-    </style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
