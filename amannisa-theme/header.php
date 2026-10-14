@@ -26,6 +26,36 @@ if ( ! defined( 'ABSPATH' ) ) {
     ?>
     <link rel="preload" as="image" href="<?php echo esc_url( $hero_preload_img ); ?>" fetchpriority="high">
     <?php wp_head(); ?>
+    <?php
+    $style_css_file = get_template_directory() . '/assets/css/style.css';
+    $style_css_ver  = file_exists( $style_css_file ) ? filemtime( $style_css_file ) : '1.3.0';
+    ?>
+    <!-- Direct Stylesheet Link (Ensures styling loads even if caching plugins rewrite wp_enqueue_style) -->
+    <link rel="stylesheet" id="amannisa-direct-style" href="<?php echo esc_url( amannisa_asset( 'css/style.css' ) . '?ver=' . $style_css_ver ); ?>">
+    <!-- Critical Anti-FOUC Inlined Styling -->
+    <style id="amannisa-critical-css">
+    :root {
+      --pink: #E8006F; --pink-hover: #c9005f; --pink-soft: #ffe6e6; --pink-light: #fff0f5;
+      --bg: #FFF8E6; --bg-card: #FFF3E3; --ink: #141414; --mut: #6b6b76; --line: #f5d3d8;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: var(--font-sans); background-color: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; padding: 0; }
+    .pg:not(.on) { display: none !important; }
+    .pg.on { display: block !important; }
+    h1, h2, h3, h4, .h { font-family: var(--font-display); font-weight: 800; color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255, 248, 230, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 44px; height: 44px; border-radius: 12px; }
+    .brand b { font-size: 20px; font-weight: 800; color: var(--pink); display: block; line-height: 1.1; }
+    .brand small { font-size: 10px; letter-spacing: 0.12em; color: var(--mut); display: block; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; background: var(--pink); color: #fff !important; font-weight: 600; padding: 13px 26px; border-radius: 9999px; border: none; cursor: pointer; text-decoration: none; }
+    .pill { display: inline-block; background: var(--pink-soft); color: var(--pink); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; }
+    </style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>

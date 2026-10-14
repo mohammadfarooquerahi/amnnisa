@@ -64,12 +64,18 @@ function amannisa_scripts() {
         null
     );
 
-    // Theme Main Stylesheet
+    // Cache-busting versions based on file modification timestamps
+    $style_file  = get_template_directory() . '/style.css';
+    $style_ver   = file_exists( $style_file ) ? filemtime( $style_file ) : '1.3.0';
+    $script_file = get_template_directory() . '/assets/js/main.js';
+    $script_ver  = file_exists( $script_file ) ? filemtime( $script_file ) : '1.3.0';
+
+    // Theme Main Stylesheet (Directly self-contained)
     wp_enqueue_style(
         'amannisa-style',
         get_stylesheet_uri(),
         array( 'amannisa-google-fonts' ),
-        '1.1.0'
+        $style_ver
     );
 
     // Main Interactive Scripts
@@ -77,7 +83,7 @@ function amannisa_scripts() {
         'amannisa-main',
         get_template_directory_uri() . '/assets/js/main.js',
         array(),
-        '1.1.0',
+        $script_ver,
         true
     );
 
