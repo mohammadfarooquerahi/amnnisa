@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Amnnisa Platform — Client User &amp; Management Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1a1a1f;
+    background: #ffffff;
+    line-height: 1.6;
+    font-size: 13.5px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #141414;
+    letter-spacing: -0.02em;
+  }
+
+  .cover-page {
+    page-break-after: always;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px 20px;
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffe6e6;
+    color: #E8006F;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-size: 42px;
+    line-height: 1.15;
+    font-weight: 800;
+    color: #141414;
+    margin-bottom: 12px;
+  }
+
+  .cover-title span {
+    color: #E8006F;
+  }
+
+  .cover-subtitle {
+    font-size: 18px;
+    color: #555562;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    max-width: 600px;
+  }
+
+  .cover-card {
+    background: #fff8eb;
+    border: 1.5px solid #f1e4ce;
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 30px;
+  }
+
+  .cover-card h3 {
+    color: #E8006F;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .cover-card p {
+    font-size: 14px;
+    color: #3e3e48;
+    line-height: 1.6;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    background: #fdfaf3;
+    border: 1px solid #ebdcc5;
+    border-radius: 14px;
+    padding: 18px 24px;
+    margin-top: 20px;
+  }
+
+  .meta-item strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8c8273;
+    margin-bottom: 4px;
+  }
+
+  .meta-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #141414;
+  }
+
+  .cover-footer {
+    border-top: 1px solid #eee5d4;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #7a7a85;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .section {
+    margin-bottom: 36px;
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    border-bottom: 2px solid #E8006F;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .section-header h2 {
+    font-size: 22px;
+    color: #141414;
+  }
+
+  .section-header .section-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: #E8006F;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  p {
+    margin-bottom: 12px;
+    color: #2e2e38;
+  }
+
+  .step-box {
+    background: #ffffff;
+    border: 1px solid #e5ded0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+  }
+
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #E8006F;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #141414;
+  }
+
+  .step-body {
+    padding-left: 40px;
+    font-size: 13px;
+    color: #4a4a55;
+    line-height: 1.6;
+  }
+
+  .callout {
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.55;
+    page-break-inside: avoid;
+  }
+
+  .callout-info {
+    background: #f0f7ff;
+    border-left: 4px solid #0073aa;
+    color: #0b4b75;
+  }
+
+  .callout-tip {
+    background: #fff0f5;
+    border-left: 4px solid #E8006F;
+    color: #8a0044;
+  }
+
+  .callout-success {
+    background: #f2fcf5;
+    border-left: 4px solid #10b981;
+    color: #065f46;
+  }
+
+  .callout-warn {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    color: #92400e;
+  }
+
+  table.guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12.5px;
+    page-break-inside: avoid;
+  }
+
+  table.guide-table th, table.guide-table td {
+    padding: 10px 12px;
+    border: 1px solid #e8decb;
+    text-align: left;
+  }
+
+  table.guide-table th {
+    background: #fdf5e6;
+    color: #141414;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  table.guide-table tr:nth-child(even) td {
+    background: #fffdf9;
+  }
+
+  .pill-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  .pill-pink { background: #ffe6e6; color: #E8006F; }
+  .pill-dark { background: #141414; color: #ffffff; }
+  .pill-green { background: #d1fae5; color: #065f46; }
+
+  .toc-list {
+    list-style: none;
+    margin: 16px 0;
+  }
+
+  .toc-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e6dac3;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13.5px;
+  }
+
+  .toc-list li a {
+    color: #141414;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .toc-list li span {
+    color: #E8006F;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  code {
+    background: #f4ece1;
+    color: #9c004a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER PAGE ================= -->
+<div class="cover-page">
+  <div>
+    <div class="brand-badge">🌸 Amnnisa Platform · Official Guide</div>
+    <h1 class="cover-title">Website Owner &amp;<br><span>Administrator Manual</span></h1>
+    <p class="cover-subtitle">
+      A complete, non-technical guide to managing, updating, and operating the Amnnisa Women's Safety &amp; Empowerment Platform with ease.
+    </p>
+
+    <div class="cover-card">
+      <h3>🌸 Welcome to Amnnisa</h3>
+      <p>
+        The Amnnisa platform was custom-engineered to deliver <strong>high-speed safety guidance</strong>, <strong>confidential harassment reporting</strong>, and <strong>empowering community resources</strong>. As the administrator, you have full control over all content, team members, hotlines, and form submissions directly from your WordPress dashboard—with zero coding required.
+      </p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Website URL</strong>
+        <span>https://amnnisa.com</span>
+      </div>
+      <div class="meta-item">
+        <strong>Admin Login URL</strong>
+        <span>https://amnnisa.com/wp-admin</span>
+      </div>
+      <div class="meta-item">
+        <strong>Admin Notification Email</strong>
+        <span>amnnisafoundation@gmail.com</span>
+      </div>
+      <div class="meta-item">
+        <strong>Theme Version</strong>
+        <span>Amnnisa v1.2.0 (High Performance)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Incubated at Business Incubation Center (BIC), MUET Jamshoro</span>
+    <span>Confidential &amp; Proprietary Documentation</span>
+  </div>
+</div>
+
+<!-- ================= TABLE OF CONTENTS ================= -->
+<div class="page-break"></div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Table of Contents</h2>
+    <span class="section-tag">Quick Index</span>
+  </div>
+
+  <ul class="toc-list">
+    <li><a href="#ch1">Chapter 1: Logging into Your WordPress Dashboard</a> <span>01</span></li>
+    <li><a href="#ch2">Chapter 2: Managing Form Submissions &amp; Incident Reports</a> <span>02</span></li>
+    <li><a href="#ch3">Chapter 3: Setting Up Live Email Delivery (Gmail SMTP)</a> <span>03</span></li>
+    <li><a href="#ch4">Chapter 4: Managing Team Members (Add, Edit, Delete, Photos)</a> <span>04</span></li>
+    <li><a href="#ch5">Chapter 5: Editing Website Content via Live Customizer</a> <span>05</span></li>
+    <li><a href="#ch6">Chapter 6: Emergency Hotlines &amp; One-Touch Calling</a> <span>06</span></li>
+    <li><a href="#ch7">Chapter 7: Brand Identity, Logo &amp; Tagline</a> <span>07</span></li>
+    <li><a href="#ch8">Chapter 8: Security &amp; Performance Highlights</a> <span>08</span></li>
+    <li><a href="#ch9">Chapter 9: Frequently Asked Questions &amp; Support</a> <span>09</span></li>
+  </ul>
+
+  <div class="callout callout-tip" style="margin-top: 30px;">
+    <strong>💡 Administrator Tip:</strong> Bookmark your login link <code>https://amnnisa.com/wp-admin</code> on your computer and phone so you can quickly inspect new reports and inquiries wherever you are.
+  </div>
+</div>
+
+<!-- ================= CHAPTER 1 ================= -->
+<div class="section" id="ch1">
+  <div class="section-header">
+    <h2>Chapter 1: Logging into Your Dashboard</h2>
+    <span class="section-tag">Getting Started</span>
+  </div>
+
+  <p>Your WordPress dashboard gives you a centralized control room to manage your entire platform.</p>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <div class="step-title">Open the Login Link</div>
+    </div>
+    <div class="step-body">
+      Open any web browser (Chrome, Edge, Safari, Firefox) and go to: <code>https://amnnisa.com/wp-admin</code>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <div class="step-title">Enter Your Credentials</div>
+    </div>
+    <div class="step-body">
+      Enter your administrator Username and Password, then click <strong>Log In</strong>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">3</div>
+      <div class="step-title">Overview of Key Menu Items</div>
+    </div>
+    <div class="step-body">
+      Once logged in, look at your left-hand sidebar menu:
+      <table class="guide-table" style="margin-top: 10px;">
+        <tr>
+          <th>Menu Item</th>
+          <th>What You Use It For</th>
+        </tr>
+        <tr>
+          <td><strong>🌸 Submissions</strong></td>
+          <td>View, read, and manage all incoming case reports, inquiries, ideas, and volunteer applications.</td>
+        </tr>
+        <tr>
+          <td><strong>👥 Team Members</strong></td>
+          <td>Add new team members, edit titles/departments, update photos, or remove team members.</td>
+        </tr>
+        <tr>
+          <td><strong>🎨 Appearance → Customize</strong></td>
+          <td>Live visual editor to edit all text, descriptions, buttons, photos, and hotlines with real-time preview.</td>
+        </tr>
+        <tr>
+          <td><strong>⚙️ Settings → Reading</strong></td>
+          <td>Controls your front page display.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CHAPTER 2 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch2">
+  <div class="section-header">
+    <h2>Chapter 2: Managing Form Submissions &amp; Reports</h2>
+    <span class="section-tag">Core Functionality</span>
+  </div>
+
+  <p>
+    The website has 5 active interactive forms: <strong>Report a Case</strong>, <strong>Contact Us</strong>, <strong>Join the Mission</strong>, <strong>Share an Idea</strong>, and <strong>Track Status</strong>. Whenever a visitor submits any form, two things happen instantly:
+  </p>
+  <ul style="margin: 0 0 16px 20px; line-height: 1.6;">
+    <li>The submission is permanently logged in your WordPress Admin database.</li>
+    <li>An immediate email alert with full details is dispatched to <code>amnnisafoundation@gmail.com</code>.</li>
+  </ul>
+
+  <h3 style="margin: 20px 0 10px; font-size: 16px;">Viewing Submissions in WP Admin:</h3>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">A</div>
+      <div class="step-title">Access via Left Menu or Top Admin Bar</div>
+    </div>
+    <div class="step-body">
+      Click on <strong>Submissions</strong> in the left sidebar, or click the top shortcut <strong>🌸 Amnnisa Submissions (X)</strong> from anywhere on the site.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">B</div>
+      <div class="step-title">Understanding the Submissions Table</div>
+    </div>
+    <div class="step-body">
+      <table class="guide-table">
+        <tr>
+          <th>Column</th>
+          <th>Meaning &amp; Handling</th>
+        </tr>
+        <tr>
+          <td><strong>Reference ID</strong></td>
+          <td>Unique tracking code (e.g. <code>AN-2026-LON81</code>) given to the submitter so they can track their report privately.</td>
+        </tr>
+        <tr>
+          <td><strong>Type</strong></td>
+          <td>The form submitted (<em>Case report</em>, <em>Contact message</em>, <em>Join mission</em>, <em>New idea</em>).</td>
+        </tr>
+        <tr>
+          <td><strong>Submitter</strong></td>
+          <td>Name and contact info. If the user checked "Report Anonymously", it clearly displays <code>🛡 Anonymous</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Urgency</strong></td>
+          <td>Indicates priority: <strong>Emergency</strong> (Red badge), <strong>High</strong> (Pink badge), or <strong>Standard</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Details &amp; Message</strong></td>
+          <td>Click on <code>► View submitted details</code> to expand and read the full report, location, and answers.</td>
+        </tr>
+        <tr>
+          <td><strong>Status</strong></td>
+          <td>Displays <code>✓ Sent</code> if delivered to Gmail, or <code>Logged</code> if saved locally.</td>
+        </tr>
+        <tr>
+          <td><strong>Actions</strong></td>
+          <td>Click <strong>Resend</strong> to re-dispatch the email alert, or <strong>Delete</strong> to remove the record.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>🔒 Confidentiality Protocol:</strong> In accordance with Amnnisa's mission, treat all case reports with strict privacy. Do not disclose anonymous submitter details or IP information to third parties.
+  </div>
+</div>
+
+<!-- ================= CHAPTER 3 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch3">
+  <div class="section-header">
+    <h2>Chapter 3: Setting Up Live Email Delivery (Gmail SMTP)</h2>
+    <span class="section-tag">Email Alerts</span>
+  </div>
+
+  <p>
+    Standard web hosts block basic PHP <code>mail()</code> or cause emails to land in spam. Amnnisa includes a <strong>built-in SMTP engine</strong> that connects directly to Google's official mail servers using a secure 16-letter Google App Password.
+  </p>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <div class="step-title">Generate Google App Password (2 Minutes)</div>
+    </div>
+    <div class="step-body">
+      <ol style="margin-left: 20px; line-height: 1.6;">
+        <li>Log into your Google account: <code>amnnisafoundation@gmail.com</code>.</li>
+        <li>Open: <strong>https://myaccount.google.com/security</strong></li>
+        <li>Ensure <strong>2-Step Verification</strong> is turned <strong>ON</strong>.</li>
+        <li>Go directly to: <strong>https://myaccount.google.com/apppasswords</strong></li>
+        <li>Under "App name", type: <code>Amnnisa Website</code> and click <strong>Create</strong>.</li>
+        <li>Google will display a yellow box with a <strong>16-letter password</strong> (e.g. <code>abcd efgh ijkl mnop</code>). Copy this code.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <div class="step-title">Enter Settings in WordPress Customizer</div>
+    </div>
+    <div class="step-body">
+      In your WordPress Admin, go to <strong>Appearance → Customize → Amnnisa Site Content &amp; Sections → 12. SMTP Email Delivery</strong>:
+      <table class="guide-table" style="margin-top: 10px;">
+        <tr>
+          <th>Setting Field</th>
+          <th>Exact Value to Enter</th>
+        </tr>
+        <tr>
+          <td>Enable Custom SMTP Delivery</td>
+          <td>☑ <strong>Check this box</strong></td>
+        </tr>
+        <tr>
+          <td>SMTP Host</td>
+          <td><code>smtp.gmail.com</code></td>
+        </tr>
+        <tr>
+          <td>SMTP Port</td>
+          <td><code>587</code></td>
+        </tr>
+        <tr>
+          <td>Encryption</td>
+          <td><code>tls</code></td>
+        </tr>
+        <tr>
+          <td>SMTP Username</td>
+          <td><code>amnnisafoundation@gmail.com</code></td>
+        </tr>
+        <tr>
+          <td>SMTP App Password</td>
+          <td><em>Paste your 16-letter Google code here</em></td>
+        </tr>
+        <tr>
+          <td>From Email Address</td>
+          <td><code>amnnisafoundation@gmail.com</code></td>
+        </tr>
+        <tr>
+          <td>From Name Display</td>
+          <td><code>Amnnisa Platform</code></td>
+        </tr>
+      </table>
+      Click the blue <strong>Publish</strong> button at the top.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">3</div>
+      <div class="step-title">Test with 1 Click</div>
+    </div>
+    <div class="step-body">
+      Go to <strong>Submissions</strong> in your left menu and click the button at the top:
+      <br><br>
+      👉 <strong>✉ Send Test Email to amnnisafoundation@gmail.com</strong>
+      <br><br>
+      A green checkmark will appear confirming that email delivery is working 100%!
+    </div>
+  </div>
+</div>
+
+<!-- ================= CHAPTER 4 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch4">
+  <div class="section-header">
+    <h2>Chapter 4: Managing Team Members</h2>
+    <span class="section-tag">Team Page</span>
+  </div>
+
+  <p>
+    The Amnnisa theme features a dedicated <strong>Team Members</strong> post type. All 6 founding members are already pre-loaded into your database. You can edit their roles, change photos, delete anyone, or add new members anytime.
+  </p>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <div class="step-title">Editing an Existing Team Member</div>
+    </div>
+    <div class="step-body">
+      <ol style="margin-left: 20px; line-height: 1.6;">
+        <li>Go to <strong>Team Members</strong> in your left menu.</li>
+        <li>Hover over any member (e.g. <em>Aliza Shah</em>) and click <strong>Edit</strong>.</li>
+        <li>Edit their <strong>Name</strong> in the title box.</li>
+        <li>Under <strong>Team Member Details &amp; Photo</strong>, edit:
+          <ul>
+            <li><strong>Title / Role</strong> (e.g. <code>Co-Founder</code>)</li>
+            <li><strong>Department / Function</strong> (e.g. <code>Marketing &amp; PR</code>)</li>
+          </ul>
+        </li>
+        <li><strong>Change Photo</strong>: Either upload a new photo in the <strong>Featured Image</strong> box on the right, OR paste a direct URL into the <strong>Photo Image URL</strong> box.</li>
+        <li>Click <strong>Update</strong>. Your changes will immediately reflect on the live website.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <div class="step-title">Adding a New Team Member</div>
+    </div>
+    <div class="step-body">
+      <ol style="margin-left: 20px; line-height: 1.6;">
+        <li>Go to <strong>Team Members → Add New Member</strong>.</li>
+        <li>Enter the member's full name in the title field.</li>
+        <li>Fill in their Role and Department.</li>
+        <li>Upload their photo in the <strong>Featured Image</strong> box (Square 1:1 ratio recommended, e.g. 400×400px).</li>
+        <li>Click <strong>Publish</strong>. The new member card appears instantly in the team grid.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">3</div>
+      <div class="step-title">Deleting or Reordering Members</div>
+    </div>
+    <div class="step-body">
+      <ul>
+        <li><strong>To Remove a Member</strong>: Hover over their name in the Team list and click <strong>Trash</strong>.</li>
+        <li><strong>To Reorder Members</strong>: In the member edit screen, expand <strong>Page Attributes</strong> on the right and adjust the <strong>Order</strong> number (1, 2, 3, etc.).</li>
+        <li><strong>To Reset Defaults</strong>: Click the <code>↺ Restore Default 6 Members</code> button in the notice banner at the top of the Team Members screen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>💡 Founder Spotlight:</strong> Homair Nisar's spotlight card at the top of the Team page is managed under <strong>Appearance → Customize → 9. Our Team — Founder Spotlight</strong>.
+  </div>
+</div>
+
+<!-- ================= CHAPTER 5 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch5">
+  <div class="section-header">
+    <h2>Chapter 5: Editing Website Content via Live Customizer</h2>
+    <span class="section-tag">Visual Editor</span>
+  </div>
+
+  <p>
+    You can edit every heading, paragraph, button text, image, and hotline with instant live preview. You never have to touch any code.
+  </p>
+
+  <p>
+    Go to: <strong>Appearance → Customize → Amnnisa Site Content &amp; Sections</strong>
+  </p>
+
+  <table class="guide-table">
+    <tr>
+      <th style="width: 32%;">Customizer Section</th>
+      <th>What You Can Edit Here</th>
+    </tr>
+    <tr>
+      <td><strong>0. Header Brand, Logo &amp; Tagline</strong></td>
+      <td>Brand name (<code>Amnnisa</code>), header tagline (<code>SAFETY PLATFORM</code>), and custom logo upload.</td>
+    </tr>
+    <tr>
+      <td><strong>1. Home — Hero Section</strong></td>
+      <td>Hero headline lines 1, 2, and 3, description text, primary and secondary CTA buttons, and main hero photo.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Home — Our Pillars (5)</strong></td>
+      <td>Icons and descriptions for all 5 pillars: <em>Secure</em>, <em>Dignity</em>, <em>Empower</em>, <em>Guide</em>, and <em>Collaborate</em>.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Home — Take Action Cards &amp; Track</strong></td>
+      <td>Titles and blurbs for the 4 engagement cards, plus the <strong>Track your report</strong> bar text and custom icon.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Home — Founder Quote</strong></td>
+      <td>Homair Nisar quote text, author line, and link destination button.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Home — How It Works (3 Steps)</strong></td>
+      <td>Step 1 (<em>Tell us</em>), Step 2 (<em>Get guided</em>), and Step 3 (<em>Stay protected</em>) content.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Home — Emergency Hotlines</strong></td>
+      <td>Hotline box title, disclaimer, and all 4 emergency numbers (15, 1099, 1122, 9911).</td>
+    </tr>
+    <tr>
+      <td><strong>7. Home — Stats &amp; Incubation</strong></td>
+      <td>Stat values and labels (<em>MUET</em>, <em>100%</em>, <em>1-click</em>), and MUET Incubation Center logo image.</td>
+    </tr>
+    <tr>
+      <td><strong>8. About Us Page &amp; FAQs</strong></td>
+      <td>About Us story, 3 guidance cards (Legal, Technical, Moral), and 4 Common Questions with expandable answers.</td>
+    </tr>
+    <tr>
+      <td><strong>9. Our Team — Founder Spotlight</strong></td>
+      <td>Homair Nisar's badge, title, bio, and founder portrait photo.</td>
+    </tr>
+    <tr>
+      <td><strong>10. Contact &amp; Social Channels</strong></td>
+      <td>Official email, Instagram URL and handle (<code>@amannisa_pk</code>), WhatsApp channel link, and campus address.</td>
+    </tr>
+    <tr>
+      <td><strong>11. Footer Content &amp; Copyright</strong></td>
+      <td>Footer mission statement, founder credit, and copyright notice.</td>
+    </tr>
+    <tr>
+      <td><strong>12. SMTP Email Delivery</strong></td>
+      <td>Gmail SMTP credentials for authenticated email dispatch.</td>
+    </tr>
+  </table>
+
+  <div class="callout callout-success">
+    <strong>Always Remember to Publish:</strong> Whenever you make changes in the Customizer, always click the blue <strong>Publish</strong> button at the top left to make your edits live to the world!
+  </div>
+</div>
+
+<!-- ================= CHAPTER 6, 7 & 8 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch6">
+  <div class="section-header">
+    <h2>Chapter 6: Emergency Hotlines &amp; One-Touch Calling</h2>
+    <span class="section-tag">Life Safety</span>
+  </div>
+
+  <p>
+    On mobile devices, every emergency hotline card is programmed as an instant <strong>tap-to-call link</strong> (<code>tel:15</code>, <code>tel:1099</code>, etc.). If a woman in danger taps on Police 15, her phone immediately dials the police emergency helpline.
+  </p>
+  <p>
+    To update emergency phone numbers: Go to <strong>Appearance → Customize → 6. Home — Emergency Hotlines</strong>.
+  </p>
+</div>
+
+<div class="section" id="ch7">
+  <div class="section-header">
+    <h2>Chapter 7: Brand Identity, Logo &amp; Tagline</h2>
+    <span class="section-tag">Branding</span>
+  </div>
+
+  <p>
+    The brand name is configured as <strong>Amnnisa</strong> with double 'n' across all components.
+  </p>
+  <ul style="margin: 0 0 16px 20px; line-height: 1.6;">
+    <li><strong>Header Brand</strong>: Displays <code>Amnnisa SAFETY PLATFORM</code>.</li>
+    <li><strong>Logo</strong>: To upload your custom logo image, open <strong>Appearance → Customize → 0. Header Brand, Logo &amp; Tagline</strong> and select <strong>Upload Custom Logo</strong>. Both the header and footer logos will update automatically.</li>
+  </ul>
+</div>
+
+<div class="section" id="ch8">
+  <div class="section-header">
+    <h2>Chapter 8: Security &amp; Performance Highlights</h2>
+    <span class="section-tag">Protection</span>
+  </div>
+
+  <table class="guide-table">
+    <tr>
+      <th>Security Feature</th>
+      <th>How It Protects Your Platform</th>
+    </tr>
+    <tr>
+      <td><strong>Invisible Honeypot</strong></td>
+      <td>All forms contain an invisible trap field. Spambots automatically fill it and get silently dropped, without bothering real users with annoying captchas.</td>
+    </tr>
+    <tr>
+      <td><strong>IP Rate Limiting</strong></td>
+      <td>Restricts submissions to 8 per 10 minutes per IP address to prevent form flooding and DDoS attacks.</td>
+    </tr>
+    <tr>
+      <td><strong>XML-RPC Disabled</strong></td>
+      <td>Blocks automated password guessing and amplification attacks targeting <code>xmlrpc.php</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Author Enumeration Block</strong></td>
+      <td>Prevents automated scanners from probing <code>/?author=1</code> to discover administrator usernames.</td>
+    </tr>
+    <tr>
+      <td><strong>HTTP Security Headers</strong></td>
+      <td>Enforces modern security headers (<code>X-Content-Type-Options</code>, <code>X-Frame-Options</code>, etc.) to defend against clickjacking and MIME attacks.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ================= CHAPTER 9 ================= -->
+<div class="page-break"></div>
+
+<div class="section" id="ch9">
+  <div class="section-header">
+    <h2>Chapter 9: Frequently Asked Questions &amp; Support</h2>
+    <span class="section-tag">Help &amp; FAQ</span>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">?</div>
+      <div class="step-title">Why does "Pages" in WP Admin only show Sample Page?</div>
+    </div>
+    <div class="step-body">
+      Amnnisa is designed as a modern high-speed single-page application where all sections switch instantly without slow reloads. All content is edited visually in <strong>Appearance → Customize</strong> and <strong>Team Members</strong>. To set up your homepage cleanly: create a page named <strong>Home</strong> (select template: <em>Amnnisa Platform Full Template</em>) and assign it in <strong>Settings → Reading</strong>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">?</div>
+      <div class="step-title">What if an admin email notification is not arriving in Gmail?</div>
+    </div>
+    <div class="step-body">
+      Go to <strong>Submissions</strong> in WP Admin and click <strong>Send Test Email</strong>. If it displays a notice, follow Chapter 3 to generate a 16-letter Google App Password and enter it under <strong>Appearance → Customize → 12. SMTP Email Delivery</strong>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">?</div>
+      <div class="step-title">How do I change the founder bio or quote?</div>
+    </div>
+    <div class="step-body">
+      Open <strong>Appearance → Customize</strong>. For the quote, click <strong>4. Home — Founder Quote</strong>. For the founder portrait and bio, click <strong>9. Our Team — Founder Spotlight</strong>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-head">
+      <div class="step-num">?</div>
+      <div class="step-title">Is the website mobile responsive on iPhone and Android?</div>
+    </div>
+    <div class="step-body">
+      Yes. The layout adapts smoothly to all screen sizes from large 4K monitors down to compact 320px mobile screens, featuring app-style horizontal swipeable tabs, touch-friendly buttons, and iOS zoom prevention.
+    </div>
+  </div>
+
+  <div class="callout callout-tip" style="margin-top: 30px; text-align: center;">
+    <h3 style="color: #E8006F; margin-bottom: 6px;">Need Further Assistance?</h3>
+    <p style="margin: 0; color: #4a4a55;">
+      Official Email: <strong>amnnisafoundation@gmail.com</strong> · Platform: <strong>https://amnnisa.com</strong><br>
+      Incubated at Business Incubation Center, MUET Jamshoro.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

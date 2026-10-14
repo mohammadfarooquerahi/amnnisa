@@ -1,0 +1,17 @@
+/*
+Theme Name: Amnnisa
+Theme URI: https://amnnisa.com/
+Author: Homair Nisar & Amnnisa Team
+Author URI: https://amnnisa.com/
+Description: A modern, responsive WordPress theme for Amnnisa Women's Safety & Empowerment Initiative. Features confidential case reporting, community engagement, emergency hotlines, and team spotlight. Incubated at MUET Business Incubation Center.
+Version: 1.2.0
+Requires at least: 5.8
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: amannisa
+Tags: responsive-layout, custom-menu, full-width-template, translation-ready, accessibility-ready
+*/
+
+@import url('assets/css/style.css');
