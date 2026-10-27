@@ -3,6 +3,26 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+  // Preloader Dismissal (Seamless splash screen on slow connections)
+  function dismissPreloader() {
+    const preloader = document.getElementById("amannisa-preloader");
+    if (preloader && !preloader.classList.contains("loaded")) {
+      preloader.classList.add("loaded");
+      setTimeout(function () {
+        if (preloader && preloader.parentNode) {
+          preloader.parentNode.removeChild(preloader);
+        }
+      }, 450);
+    }
+  }
+
+  if (document.readyState === "complete") {
+    dismissPreloader();
+  } else {
+    window.addEventListener("load", dismissPreloader);
+    setTimeout(dismissPreloader, 1800);
+  }
+
   const MAIL = (window.amannisaData && window.amannisaData.mailTo) ? window.amannisaData.mailTo : "amnnisafoundation@gmail.com";
   const nav = document.getElementById("nav");
   const menuToggle = document.getElementById("menu-toggle");

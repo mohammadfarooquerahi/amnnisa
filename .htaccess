@@ -69,6 +69,14 @@
 
 # END Amnnisa Performance & Security Optimizations
 
+# Force HTTPS Redirection (Reverse-Proxy & Hostinger CDN Safe)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} !on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On

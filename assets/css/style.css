@@ -1586,3 +1586,64 @@ footer img.footer-logo {
   }
 }
 
+
+/* ==========================================================================
+   Amnnisa Branded Splash Preloader (Prevents raw HTML rendering on slow networks)
+   ========================================================================== */
+#amannisa-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #FFF8E6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+}
+#amannisa-preloader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.preloader-logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 22px;
+  box-shadow: 0 12px 32px rgba(232, 0, 111, 0.24);
+  animation: amnPulse 1.8s infinite ease-in-out;
+}
+@keyframes amnPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 12px 32px rgba(232, 0, 111, 0.24); }
+  50% { transform: scale(1.06); box-shadow: 0 18px 44px rgba(232, 0, 111, 0.4); }
+}
+.preloader-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(232, 0, 111, 0.16);
+  border-top-color: #E8006F;
+  border-radius: 50%;
+  animation: amnSpin 0.75s linear infinite;
+}
+@keyframes amnSpin { to { transform: rotate(360deg); } }
+.preloader-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #E8006F;
+  letter-spacing: 0.02em;
+}
+.preloader-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A5A72;
+  font-weight: 700;
+}

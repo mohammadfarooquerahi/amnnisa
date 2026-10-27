@@ -11,6 +11,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Reverse Proxy SSL Detection & Auto HTTPS Upgrade
+ * Essential for Hostinger CDN, LiteSpeed, Cloudflare to prevent Mixed Content Blocking.
+ */
+if ( ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ) || ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ) ) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
+function amannisa_force_https_urls( $url ) {
+    if ( is_ssl() || ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ) || ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ) ) {
+        return str_replace( 'http://', 'https://', $url );
+    }
+    return $url;
+}
+add_filter( 'style_loader_src', 'amannisa_force_https_urls', 999 );
+add_filter( 'script_loader_src', 'amannisa_force_https_urls', 999 );
+add_filter( 'template_directory_uri', 'amannisa_force_https_urls', 999 );
+add_filter( 'stylesheet_directory_uri', 'amannisa_force_https_urls', 999 );
+add_filter( 'theme_file_uri', 'amannisa_force_https_urls', 999 );
+add_filter( 'wp_get_attachment_url', 'amannisa_force_https_urls', 999 );
+
+/**
  * Sets up theme defaults and registers support for various WordPress features.
  */
 function amannisa_setup() {
