@@ -101,7 +101,7 @@ $contact_whatsapp      = amannisa_get_option( 'contact_whatsapp', 'https://whats
             </span>
         </div>
         <div style="text-align: center; margin-top: 14px; padding-bottom: 6px;">
-            <a href="https://www.linkedin.com/in/mohammadfarooque/" target="_blank" rel="noopener noreferrer" class="dev-credit">
+            <a href="https://www.linkedin.com/in/mohammadfarooque/" target="_blank" rel="noopener noreferrer" class="dev-credit" style="font-size: 11px; color: #ffffff; opacity: 0.10; text-decoration: none; transition: opacity 0.3s ease; letter-spacing: 0.04em; display: inline-block;" onmouseover="this.style.opacity='0.20'" onmouseout="this.style.opacity='0.10'">
                 Developed by Mohammad Farooque
             </a>
         </div>

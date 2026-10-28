@@ -1656,3 +1656,18 @@ footer img.footer-logo {
   color: #8A5A72;
   font-weight: 700;
 }
+
+/* Developer Credit (Stealth: 10% opacity, 20% on hover) */
+.dev-credit {
+  font-size: 11px;
+  color: #ffffff !important;
+  opacity: 0.10 !important;
+  text-decoration: none !important;
+  transition: opacity 0.3s ease;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+.dev-credit:hover,
+.dev-credit:focus {
+  opacity: 0.20 !important;
+}
