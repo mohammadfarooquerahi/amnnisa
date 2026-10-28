@@ -136,14 +136,23 @@ $canonical_url = home_url( '/' );
     body { font-family: var(--font-sans); background-color: var(--bg); color: var(--ink); line-height: 1.6; margin: 0; padding: 0; overflow-x: hidden; min-height: 100vh; }
     img, svg, video { max-width: 100%; height: auto; display: block; }
 
-    /* Branded Splash Screen / Preloader */
+    /* Branded Splash Screen / Preloader (Auto-dismisses in < 0.6s, guaranteed ultra-fast) */
     #amannisa-preloader {
       position: fixed; inset: 0; z-index: 999999;
       background: #FFF8E6; display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+      animation: amnAutoDismiss 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+      pointer-events: auto;
     }
     #amannisa-preloader.loaded {
-      opacity: 0; visibility: hidden; pointer-events: none;
+      opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+    }
+    @keyframes amnAutoDismiss {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
     }
     .preloader-content {
       display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;
@@ -242,7 +251,7 @@ $canonical_url = home_url( '/' );
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<!-- Amnnisa Branded Splash Preloader (Prevents raw HTML rendering on slow networks) -->
+<!-- Amnnisa Branded Splash Preloader (Auto-dismisses in < 0.6s, guaranteed ultra-fast) -->
 <div id="amannisa-preloader" aria-label="Loading Amnnisa Platform">
     <div class="preloader-content">
         <img src="<?php echo esc_url( $custom_logo_url ); ?>" alt="<?php echo esc_attr( $brand_name ); ?> Logo" width="84" height="84" class="preloader-logo">
@@ -251,6 +260,24 @@ $canonical_url = home_url( '/' );
         <small class="preloader-sub"><?php echo esc_html( $brand_tagline ); ?></small>
     </div>
 </div>
+<script>
+(function(){
+  var p = document.getElementById("amannisa-preloader");
+  if (!p) return;
+  function d() {
+    p.classList.add("loaded");
+    setTimeout(function(){ if (p && p.parentNode) p.parentNode.removeChild(p); }, 350);
+  }
+  p.addEventListener("click", d);
+  p.addEventListener("touchstart", d, {passive: true});
+  if (document.readyState === "complete") {
+    d();
+  } else {
+    window.addEventListener("load", d);
+    setTimeout(d, 500); // Max 0.5s splash
+  }
+})();
+</script>
 
 <!-- Accessible Skip Link -->
 <a class="screen-reader-text" href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">

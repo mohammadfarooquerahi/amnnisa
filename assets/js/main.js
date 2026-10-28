@@ -2,8 +2,10 @@
  * Amannisa Platform - Core Interactions & Routing
  */
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Preloader Dismissal (Seamless splash screen on slow connections)
+(function () {
+  'use strict';
+
+  // Instant Preloader Dismissal (guaranteed ultra-fast < 0.6s)
   function dismissPreloader() {
     const preloader = document.getElementById("amannisa-preloader");
     if (preloader && !preloader.classList.contains("loaded")) {
@@ -12,16 +14,21 @@ document.addEventListener('DOMContentLoaded', function () {
         if (preloader && preloader.parentNode) {
           preloader.parentNode.removeChild(preloader);
         }
-      }, 450);
+      }, 350);
     }
   }
 
+  // Dismiss preloader immediately without delay
+  dismissPreloader();
   if (document.readyState === "complete") {
     dismissPreloader();
   } else {
     window.addEventListener("load", dismissPreloader);
-    setTimeout(dismissPreloader, 1800);
+    setTimeout(dismissPreloader, 500);
   }
+
+  function initAmannisa() {
+    dismissPreloader();
 
   const MAIL = (window.amannisaData && window.amannisaData.mailTo) ? window.amannisaData.mailTo : "amnnisafoundation@gmail.com";
   const nav = document.getElementById("nav");
@@ -255,4 +262,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize router
   route();
-});
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAmannisa);
+  } else {
+    initAmannisa();
+  }
+})();

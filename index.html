@@ -63,20 +63,27 @@
     <style>
     #amannisa-preloader {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #ffffff;
+      inset: 0;
+      background: #FFF8E6;
       z-index: 999999;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+      animation: amnAutoDismiss 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+      pointer-events: auto;
     }
-    #amannisa-preloader.fade-out {
-      opacity: 0;
-      visibility: hidden;
+    #amannisa-preloader.loaded {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    @keyframes amnAutoDismiss {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
     }
     .preloader-content {
       display: flex;
@@ -144,7 +151,7 @@
 </head>
 <body>
 
-<!-- Amnnisa Branded Splash Preloader -->
+<!-- Amnnisa Branded Splash Preloader (Auto-dismisses in < 0.6s) -->
 <div id="amannisa-preloader" aria-label="Loading Amnnisa Platform">
     <div class="preloader-content">
         <img src="assets/images/logo.jpg" alt="Amnnisa Logo" width="84" height="84" class="preloader-logo">
@@ -153,6 +160,24 @@
         <small class="preloader-sub">SAFETY PLATFORM</small>
     </div>
 </div>
+<script>
+(function(){
+  var p = document.getElementById("amannisa-preloader");
+  if (!p) return;
+  function d() {
+    p.classList.add("loaded");
+    setTimeout(function(){ if (p && p.parentNode) p.parentNode.removeChild(p); }, 350);
+  }
+  p.addEventListener("click", d);
+  p.addEventListener("touchstart", d, {passive: true});
+  if (document.readyState === "complete") {
+    d();
+  } else {
+    window.addEventListener("load", d);
+    setTimeout(d, 500);
+  }
+})();
+</script>
 
 <a class="screen-reader-text" href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 
